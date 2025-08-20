@@ -3,7 +3,6 @@
     "noEmit": true,
     "target": "es6",
     "module": "esnext",
-    "noImplicitAny": false,
     "preserveConstEnums": true,
     "jsx": "react",
     "lib": [
@@ -28,7 +27,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": false,
     "strict": true,
-    "strictFunctionTypes": false,
+    "strictFunctionTypes": true,
     "pretty": true,
     "removeComments": true,
     "sourceMap": true,
