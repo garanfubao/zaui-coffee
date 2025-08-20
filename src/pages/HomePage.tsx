@@ -1,0 +1,33 @@
+import React from "react";
+import { Page, Swiper, SwiperSlide, Box, Text } from "zmp-ui";
+import ProductItem from "../components/ProductItem";
+import products from "../data/products";
+
+const banners = [
+  "https://stc-zmp.zadn.vn/templates/zaui-coffee/dummy/banner-1.webp",
+  "https://stc-zmp.zadn.vn/templates/zaui-coffee/dummy/banner-2.webp",
+  "https://stc-zmp.zadn.vn/templates/zaui-coffee/dummy/banner-3.webp",
+];
+
+const HomePage: React.FC = () => {
+  return (
+    <Page className="p-4">
+      <Swiper autoplay loop>
+        {banners.map((src, idx) => (
+          <SwiperSlide key={idx}>
+            <img src={src} alt="banner" className="w-full rounded-xl" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <Box mt={4}>
+        <Text.Header>COMBO SIU HOT - CHIỀN LÀ MÊ 🔥</Text.Header>
+        {products.slice(0, 2).map((p) => (
+          <ProductItem key={p.id} product={p} />
+        ))}
+      </Box>
+    </Page>
+  );
+};
+
+export default HomePage;

@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Box, Page } from "zmp-ui";
-import { Inquiry } from "./inquiry";
 import { Welcome } from "./welcome";
+import { Features } from "./features";
 import { Banner } from "./banner";
 import { Categories } from "./categories";
 import { Recommend } from "./recommend";
@@ -12,8 +12,8 @@ const HomePage: React.FunctionComponent = () => {
   return (
     <Page className="relative flex-1 flex flex-col bg-white">
       <Welcome />
+      <Features />
       <Box className="flex-1 overflow-auto">
-        <Inquiry />
         <Banner />
         <Suspense>
           <Categories />
