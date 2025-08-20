@@ -39,7 +39,11 @@
     ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/pages/address",
+    "src/pages/cart",
+    "src/pages/index",
+    "src/pages/search"
   ],
   "include": [
     "src"
