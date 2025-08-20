@@ -1,6 +1,5 @@
 import { atom, selector, selectorFamily } from "recoil";
 import { getLocation, getPhoneNumber, getUserInfo } from "zmp-sdk";
-import logo from "static/logo.png";
 import { Category } from "types/category";
 import { Product, Variant } from "types/product";
 import { Cart } from "types/cart";
@@ -10,6 +9,7 @@ import { Store } from "types/delivery";
 import { calcFinalPrice } from "utils/product";
 import { wait } from "utils/async";
 import categories from "../mock/categories.json";
+const logo = "/static/logo.png";
 
 export const userState = selector({
   key: "user",

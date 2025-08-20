@@ -1,60 +1,85 @@
-import React from "react";
-import { Page, Box, Text, Button } from "zmp-ui";
+import React, { useState } from "react";
+import { Page, Box, Text, Button, useSnackbar } from "zmp-ui";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { cartState, cartTotalSelector, defaultAddressSelector, pointsState } from "../state/index";
-import type { CartItem, Address } from "../types";
-import { formatVND } from "../utils/price";
-import { useNavigate } from "zmp-ui";
+import {
+  cartState,
+  cartTotalSelector,
+  defaultAddressSelector,
+  pointsState,
+} from "../state/index";
 
 const CheckoutPage: React.FC = () => {
-  const total = useRecoilValue<number>(cartTotalSelector);
-  const address = useRecoilValue<Address | null>(defaultAddressSelector);
+  const cart = useRecoilValue(cartState);
+  const total = useRecoilValue(cartTotalSelector);
+  const defaultAddress = useRecoilValue(defaultAddressSelector);
   const setPoints = useSetRecoilState(pointsState);
-  const navigate = useNavigate();
-  const cart = useRecoilValue<CartItem[]>(cartState);
 
-  const onPay = () => {
-    const earned = Math.floor(total / 10000) * 10;
-    setPoints((p) => p + earned);
-    navigate("/");
+  const { openSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    try {
+      setLoading(true);
+      // TODO: gọi API checkout thật sự ở đây
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // cộng điểm thưởng, ví dụ 10%
+      setPoints((prev) => prev + Math.floor(total / 10));
+
+      openSnackbar({
+        text: "Thanh toán thành công 🎉",
+        type: "success",
+      });
+    } catch (err) {
+      openSnackbar({
+        text: "Có lỗi xảy ra khi thanh toán",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Page className="p-4 pb-20">
-      <Text.Header>Trang thanh toán</Text.Header>
+    <Page className="p-4">
+      <Box className="mb-4">
+        <Text.Title size="large">Thanh toán</Text.Title>
+      </Box>
 
-      <Box className="mb-3 p-4 rounded-xl bg-white">
-        {!address ? (
-          <Box flex justifyContent="space-between" alignItems="center">
-            <Box>
-              <Text className="text-gray-500">Bạn chưa có địa chỉ</Text>
-              <Text size="small">Vui lòng thêm địa chỉ để giao hàng</Text>
-            </Box>
-            <Button onClick={() => navigate("/address/new")}>Thêm</Button>
-          </Box>
+      <Box className="mb-2">
+        <Text bold>Địa chỉ giao hàng:</Text>
+        <Text>{defaultAddress || "Chưa có địa chỉ mặc định"}</Text>
+      </Box>
+
+      <Box className="mb-4">
+        <Text bold>Giỏ hàng:</Text>
+        {cart.length === 0 ? (
+          <Text>Không có sản phẩm nào</Text>
         ) : (
-          <Box>
-            <Text.Title>Địa chỉ giao hàng</Text.Title>
-            <Text>{address.fullname} | {address.phone}</Text>
-            <Text size="small">{address.detail}, {address.ward}, {address.district}, {address.province}</Text>
-          </Box>
+          cart.map((item) => (
+            <Box key={item.id} className="flex justify-between py-1">
+              <Text>
+                {item.name} x{item.quantity}
+              </Text>
+              <Text>{item.price * item.quantity}đ</Text>
+            </Box>
+          ))
         )}
       </Box>
 
-      <Box className="mb-3 p-4 rounded-xl bg-white">
-        <Text.Title>Sản phẩm đã chọn ({cart.length})</Text.Title>
-        {cart.map((i) => (
-          <Box key={i.product.id} className="py-2 flex justify-between">
-            <Text>{i.product.name} x{i.qty}</Text>
-            <Text className="text-red-500">{formatVND(i.product.price * i.qty)}</Text>
-          </Box>
-        ))}
+      <Box className="flex justify-between mb-6">
+        <Text bold>Tổng cộng:</Text>
+        <Text bold>{total}đ</Text>
       </Box>
 
-      <Box className="p-4 rounded-xl bg-white">
-        <Text.Title>Tạm tính: {formatVND(total)}</Text.Title>
-        <Button className="mt-3" disabled={total <= 0 || !address} onClick={onPay}>Thanh toán</Button>
-      </Box>
+      <Button
+        fullWidth
+        disabled={cart.length === 0 || loading}
+        loading={loading}
+        onClick={handleCheckout}
+      >
+        Thanh toán
+      </Button>
     </Page>
   );
 };

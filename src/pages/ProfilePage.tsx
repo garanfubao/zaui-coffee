@@ -1,6 +1,7 @@
 import React from "react";
-import { Page, Box, Avatar, Text, List } from "zmp-ui";
+import { Page, Box, Avatar, Text, List, Button, Icon } from "zmp-ui";
 import { useNavigate } from "zmp-ui";
+import { requestFollowOA, openOAChat, sendMessageFromOA } from "../services/oa";
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
@@ -13,9 +14,33 @@ const ProfilePage: React.FC = () => {
 
       <List>
         <List.Item title="Chỉnh sửa thông tin" />
-        <List.Item title="Đơn hàng" onClick={() => navigate("/checkout") } />
-        <List.Item title="Lịch sử tích điểm" onClick={() => navigate("/rewards") } />
-        <List.Item title="Sổ địa chỉ" onClick={() => navigate("/addresses") } />
+        <List.Item title="Đơn hàng" onClick={() => navigate("/checkout")} />
+        <List.Item title="Lịch sử tích điểm" onClick={() => navigate("/rewards")} />
+        <List.Item title="Sổ địa chỉ" onClick={() => navigate("/addresses")} />
+        <List.Item
+          title="Quan tâm OA"
+          prefix={<Icon icon="zi-heart" />}
+          suffix={
+            <div className="flex gap-2">
+              <Button size="small" variant="secondary" onClick={() => requestFollowOA()}>
+                Quan tâm
+              </Button>
+              <Button size="small" onClick={() => openOAChat()}>
+                Nhắn OA
+              </Button>
+            </div>
+          }
+        />
+        <List.Item
+          title="Nhận mã ưu đãi qua OA"
+          subTitle="Gửi tin nhắn OA để nhận voucher demo"
+          prefix={<Icon icon="zi-gift" />}
+          suffix={
+            <Button size="small" onClick={() => sendMessageFromOA('Gửi voucher giúp tôi với!')}>
+              Gửi
+            </Button>
+          }
+        />
       </List>
 
       <Box textAlign="center" mt={8}>

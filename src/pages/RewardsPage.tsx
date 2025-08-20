@@ -27,3 +27,26 @@ const RewardsPage: React.FC = () => {
           size="small"
           className="mt-2"
           disabled={points < 100}
+          onClick={() => setPoints((p) => p - 100)}
+        >
+          Đổi 100 điểm
+        </Button>
+      </Box>
+
+      <Box className="mb-4 p-4 rounded-xl bg-white shadow">
+        <Text.Title>Miễn phí topping</Text.Title>
+        <Text>Áp dụng cho một topping</Text>
+        <Button
+          size="small"
+          className="mt-2"
+          disabled={points < 50}
+          onClick={() => setPoints((p) => p - 50)}
+        >
+          Đổi 50 điểm
+        </Button>
+      </Box>
+    </Page>
+  );
+};
+
+export default RewardsPage;

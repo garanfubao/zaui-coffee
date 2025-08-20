@@ -2,6 +2,8 @@ import React from "react";
 import { Page, Swiper, Box, Text } from "zmp-ui";
 import ProductItem from "../components/ProductItem";
 import products from "../data/products";
+import OAFollowCard from "../components/OAFollowCard";
+import { QuickActions } from "../components/QuickActions";
 
 const banners = [
   "https://stc-zmp.zadn.vn/templates/zaui-coffee/dummy/banner-1.webp",
@@ -19,6 +21,9 @@ const HomePage: React.FC = () => {
           </Swiper.Slide>
         ))}
       </Swiper>
+
+      <QuickActions />
+      <OAFollowCard />
 
       <Box mt={4}>
         <Text.Header>COMBO SIU HOT - CHIỀN LÀ MÊ 🔥</Text.Header>
