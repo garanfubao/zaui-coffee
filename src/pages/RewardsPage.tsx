@@ -1,7 +1,7 @@
 import React from "react";
 import { Page, Box, Text, Button } from "zmp-ui";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { pointsState } from "../state/pointsState";
+import { pointsState } from "../state/index";
 
 const RewardsPage: React.FC = () => {
   const points = useRecoilValue<number>(pointsState);
@@ -27,25 +27,3 @@ const RewardsPage: React.FC = () => {
           size="small"
           className="mt-2"
           disabled={points < 100}
-          onClick={() => setPoints((p: number) => p - 100)}
-        >
-          Đổi 100 điểm
-        </Button>
-      </Box>
-      <Box className="mb-4 p-4 rounded-xl bg-white shadow">
-        <Text.Title>Miễn phí topping</Text.Title>
-        <Text>Cho trà sữa, cà phê</Text>
-        <Button
-          size="small"
-          className="mt-2"
-          disabled={points < 50}
-          onClick={() => setPoints((p: number) => p - 50)}
-        >
-          Đổi 50 điểm
-        </Button>
-      </Box>
-    </Page>
-  );
-};
-
-export default RewardsPage;

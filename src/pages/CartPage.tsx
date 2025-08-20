@@ -1,5 +1,5 @@
 import React from "react";
-import { Page, List, ListItem, Text, Button, Box, Icon } from "zmp-ui";
+import { Page, List, Text, Button, Box, Icon } from "zmp-ui";
 import { useCart } from "../hooks/useCart";
 import { formatVND } from "../utils/price";
 import CartBar from "../components/CartBar";
@@ -15,12 +15,11 @@ const CartPage: React.FC = () => {
       ) : (
         <List>
           {cart.map((i) => (
-            <ListItem
+            <List.Item
               key={i.product.id}
               title={i.product.name}
-              subTitle={<span className="text-red-500">{formatVND(i.product.price)}</span>}
               suffix={
-                <Box flex align="center" gap="2">
+                <Box flex alignItems="center" className="gap-2">
                   <Button size="small" onClick={() => changeQty(i.product.id, i.qty - 1)}>-</Button>
                   <Text>{i.qty}</Text>
                   <Button size="small" onClick={() => changeQty(i.product.id, i.qty + 1)}>+</Button>
@@ -29,7 +28,9 @@ const CartPage: React.FC = () => {
                   </Button>
                 </Box>
               }
-            />
+            >
+              <Text className="text-red-500">{formatVND(i.product.price)}</Text>
+            </List.Item>
           ))}
         </List>
       )}

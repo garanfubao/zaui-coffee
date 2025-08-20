@@ -1,9 +1,9 @@
 import { useRecoilState } from "recoil";
-import { cartState } from "../state";
+import { cartState } from "../state/index";
 import type { Product, CartItem } from "../types";
 
 export const useCart = () => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const [cart, setCart] = useRecoilState<CartItem[]>(cartState);
 
   const add = (product: Product, qty = 1, patch?: Partial<CartItem>) => {
     setCart((prev) => {

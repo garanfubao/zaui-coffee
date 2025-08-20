@@ -1,5 +1,5 @@
 import React from "react";
-import { Page, Box, Avatar, Text, List, ListItem } from "zmp-ui";
+import { Page, Box, Avatar, Text, List } from "zmp-ui";
 import { useNavigate } from "zmp-ui";
 
 const ProfilePage: React.FC = () => {
@@ -12,10 +12,10 @@ const ProfilePage: React.FC = () => {
       </Box>
 
       <List>
-        <ListItem title="Chỉnh sửa thông tin" />
-        <ListItem title="Đơn hàng" link="/checkout" />
-        <ListItem title="Lịch sử tích điểm" link="/rewards" />
-        <ListItem title="Sổ địa chỉ" onClick={() => navigate("/addresses")} />
+        <List.Item title="Chỉnh sửa thông tin" />
+        <List.Item title="Đơn hàng" onClick={() => navigate("/checkout") } />
+        <List.Item title="Lịch sử tích điểm" onClick={() => navigate("/rewards") } />
+        <List.Item title="Sổ địa chỉ" onClick={() => navigate("/addresses") } />
       </List>
 
       <Box textAlign="center" mt={8}>

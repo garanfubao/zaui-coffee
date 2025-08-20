@@ -1,5 +1,5 @@
 import React from "react";
-import { Page, Swiper, SwiperSlide, Box, Text } from "zmp-ui";
+import { Page, Swiper, Box, Text } from "zmp-ui";
 import ProductItem from "../components/ProductItem";
 import products from "../data/products";
 
@@ -14,9 +14,9 @@ const HomePage: React.FC = () => {
     <Page className="p-4">
       <Swiper autoplay loop>
         {banners.map((src, idx) => (
-          <SwiperSlide key={idx}>
+          <Swiper.Slide key={idx}>
             <img src={src} alt="banner" className="w-full rounded-xl" />
-          </SwiperSlide>
+          </Swiper.Slide>
         ))}
       </Swiper>
 
